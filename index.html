@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="FastShopping - Compras Premium ao Seu Alcance. E-commerce de luxo com os melhores produtos, frete grátis e parcelamento em 12x.">
+<title>FastShopping | Compras Premium ao Seu Alcance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#0a0a0f;--bg-card:#12121a;--bg-glass:rgba(18,18,26,.65);
+--gold:#c8a97e;--gold-light:#e0c9a6;--gold-dark:#a08050;
+--text:#e8e4de;--text-muted:#8a857d;--text-heading:#f5f0e8;
+--border:rgba(200,169,126,.12);--border-hover:rgba(200,169,126,.3);
+--radius:12px;--radius-lg:20px;
+--shadow:0 8px 32px rgba(0,0,0,.4);
+--shadow-gold:0 0 30px rgba(200,169,126,.15);
+--transition:all .35s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,h6{font-family:'Playfair Display',serif;color:var(--text-heading);font-weight:600}
+a{text-decoration:none;color:inherit;transition:var(--transition)}
+button{cursor:pointer;font-family:'DM Sans',sans-serif;border:none;outline:none}
+img{max-width:100%;display:block}
+ul{list-style:none}
+.container{width:100%;max-width:1240px;margin:0 auto;padding:0 20px}
+
+/* ===== ANIMATIONS ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes slideInRight{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes slideOutRight{from{transform:translateX(0)}to{transform:translateX(100%)}}
+@keyframes countPulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+
+/* ===== NAVBAR ===== */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:var(--transition)}
+.navbar.scrolled{background:rgba(10,10,15,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:10px 0}
+.navbar .container{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold);letter-spacing:-.5px}
+.nav-logo span{color:var(--text-heading)}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--text-muted);position:relative;padding:4px 0}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--gold);transition:var(--transition)}
+.nav-links a:hover,.nav-links a:focus{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a:focus::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:16px}
+.nav-search-btn,.nav-cart-btn{background:transparent;color:var(--text-muted);width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:var(--transition)}
+.nav-search-btn:hover,.nav-cart-btn:hover{color:var(--gold);background:rgba(200,169,126,.08)}
+.nav-cart-btn{position:relative}
+.cart-count{position:absolute;top:2px;right:2px;background:var(--gold);color:var(--bg);font-size:.65rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:var(--transition)}
+.cart-count.show{opacity:1;transform:scale(1)}
+.nav-mobile-btn{display:none;background:transparent;color:var(--text);width:40px;height:40px;align-items:center;justify-content:center}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(200,169,126,.08) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(200,169,126,.05) 0%,transparent 50%),radial-gradient(ellipse 40% 40% at 10% 80%,rgba(200,169,126,.04) 0%,transparent 50%);pointer-events:none}
+.hero::after{content:'';position:absolute;top:0;right:0;width:500px;height:500px;background:radial-gradient(circle,rgba(200,169,126,.06) 0%,transparent 70%);animation:float 8s ease-in-out infinite;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,169,126,.08);border:1px solid var(--border);padding:8px 16px;border-radius:100px;font-size:.8rem;color:var(--gold);margin-bottom:24px}
+.hero-badge i{width:14px;height:14px}
+.hero h1{font-size:clamp(2.4rem,5vw,4rem);line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+.hero h1 .gold{color:var(--gold)}
+.hero-desc{font-size:1.1rem;color:var(--text-muted);margin-bottom:36px;max-width:480px;line-height:1.7}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--bg);padding:14px 32px;border-radius:100px;font-weight:600;font-size:.95rem;transition:var(--transition);display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(200,169,126,.3)}
+.btn-primary:focus{outline:2px solid var(--gold-light);outline-offset:2px}
+.btn-outline{background:transparent;border:1.5px solid var(--border-hover);color:var(--text-heading);padding:14px 32px;border-radius:100px;font-weight:600;font-size:.95rem;transition:var(--transition);display:inline-flex;align-items:center;gap:8px}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.btn-outline:focus{outline:2px solid var(--gold-light);outline-offset:2px}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-card{width:100%;max-width:440px;aspect-ratio:3/4;border-radius:var(--radius-lg);background:linear-gradient(160deg,rgba(200,169,126,.12),rgba(18,18,26,.8));border:1px solid var(--border);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:32px}
+.hero-card::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(200,169,126,.06) 0%,rgba(10,10,15,.9) 100%)}
+.hero-card-content{position:relative;z-index:1}
+.hero-card-tag{background:var(--gold);color:var(--bg);font-size:.7rem;font-weight:700;padding:4px 12px;border-radius:100px;display:inline-block;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.hero-card h3{font-size:1.4rem;margin-bottom:4px}
+.hero-card p{color:var(--text-muted);font-size:.9rem}
+.hero-floating-card{position:absolute;background:var(--bg-glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;gap:12px;animation:float 6s ease-in-out infinite}
+.hero-float-1{top:20%;right:-20px;animation-delay:0s}
+.hero-float-2{bottom:20%;left:-20px;animation-delay:2s}
+.hero-floating-card .icon-wrap{width:40px;height:40px;border-radius:10px;background:rgba(200,169,126,.12);display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.hero-floating-card .icon-wrap i{width:20px;height:20px}
+.hero-floating-card .info span{font-size:.75rem;color:var(--text-muted);display:block}
+.hero-floating-card .info strong{font-size:.9rem;color:var(--text-heading)}
+.hero-stats{display:flex;gap:40px;margin-top:40px}
+.hero-stat h4{font-size:1.6rem;color:var(--gold);font-family:'DM Sans',sans-serif;font-weight:700}
+.hero-stat p{font-size:.8rem;color:var(--text-muted)}
+
+/* ===== SECTION COMMON ===== */
+section{padding:100px 0}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-weight:600;margin-bottom:12px}
+.section-label i{width:16px;height:16px}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:16px;letter-spacing:-.5px}
+.section-desc{color:var(--text-muted);max-width:560px;font-size:1rem;line-height:1.7}
+.section-header{text-align:center;margin-bottom:60px}
+.section-header .section-desc{margin:0 auto}
+
+/* ===== CATEGORIES ===== */
+.categories{background:linear-gradient(180deg,var(--bg) 0%,rgba(18,18,26,.5) 100%)}
+.categories-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.category-card{background:var(--bg-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px 28px;text-align:center;transition:var(--transition);cursor:pointer;position:relative;overflow:hidden}
+.category-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(200,169,126,.06),transparent 70%);opacity:0;transition:var(--transition)}
+.category-card:hover{transform:translateY(-6px);border-color:var(--border-hover);box-shadow:var(--shadow-gold)}
+.category-card:hover::before{opacity:1}
+.category-icon{width:64px;height:64px;border-radius:16px;background:rgba(200,169,126,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--gold);transition:var(--transition)}
+.category-card:hover .category-icon{background:rgba(200,169,126,.15);transform:scale(1.05)}
+.category-icon i{width:28px;height:28px}
+.category-card h3{font-size:1.1rem;margin-bottom:8px}
+.category-card p{font-size:.85rem;color:var(--text-muted)}
+.category-count{margin-top:16px;font-size:.75rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:1px}
+
+/* ===== PRODUCTS ===== */
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.product-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:var(--transition);position:relative}
+.product-card:hover{transform:translateY(-4px);border-color:var(--border-hover);box-shadow:var(--shadow)}
+.product-img{aspect-ratio:1;position:relative;overflow:hidden}
+.product-img-bg{width:100%;height:100%;transition:var(--transition)}
+.product-card:hover .product-img-bg{transform:scale(1.05)}
+.product-badge{position:absolute;top:12px;left:12px;background:var(--gold);color:var(--bg);font-size:.7rem;font-weight:700;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+.product-wishlist{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:var(--bg-glass);backdrop-filter:blur(8px);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:var(--transition);cursor:pointer}
+.product-wishlist:hover{color:#e74c3c;border-color:#e74c3c;background:rgba(231,76,60,.1)}
+.product-wishlist i{width:16px;height:16px}
+.product-info{padding:20px}
+.product-category{font-size:.75rem;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:6px}
+.product-info h3{font-size:1rem;margin-bottom:8px;line-height:1.3}
+.product-rating{display:flex;align-items:center;gap:4px;margin-bottom:12px}
+.product-rating .stars{display:flex;gap:2px;color:var(--gold)}
+.product-rating .stars i{width:14px;height:14px}
+.product-rating span{font-size:.8rem;color:var(--text-muted);margin-left:4px}
+.product-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:14px}
+.product-price{font-size:1.2rem;font-weight:700;color:var(--text-heading)}
+.product-price-old{font-size:.85rem;color:var(--text-muted);text-decoration:line-through}
+.product-installment{font-size:.75rem;color:var(--text-muted)}
+.btn-cart{width:100%;background:rgba(200,169,126,.08);border:1px solid var(--border);color:var(--gold);padding:12px;border-radius:10px;font-weight:600;font-size:.85rem;display:flex;align-items:center;justify-content:center;gap:8px;transition:var(--transition)}
+.btn-cart:hover{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.btn-cart:focus{outline:2px solid var(--gold-light);outline-offset:2px}
+.btn-cart i{width:16px;height:16px}
+
+/* ===== FLASH SALE ===== */
+.flash-sale{padding:80px 0;position:relative;overflow:hidden}
+.flash-sale::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(200,169,126,.04),rgba(10,10,15,.95));pointer-events:none}
+.flash-inner{background:linear-gradient(135deg,rgba(200,169,126,.06),rgba(18,18,26,.8));border:1px solid var(--border);border-radius:var(--radius-lg);padding:60px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
+.flash-inner::before{content:'';position:absolute;top:-50%;right:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(200,169,126,.08),transparent 70%);pointer-events:none}
+.flash-content{flex:1}
+.flash-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.2);padding:6px 14px;border-radius:100px;font-size:.8rem;color:#e74c3c;font-weight:600;margin-bottom:16px}
+.flash-badge i{width:14px;height:14px;animation:pulse 1.5s ease-in-out infinite}
+.flash-content h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px}
+.flash-content p{color:var(--text-muted);font-size:1rem;margin-bottom:28px;max-width:420px}
+.countdown{display:flex;gap:12px}
+.countdown-item{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;text-align:center;min-width:80px}
+.countdown-item .number{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold);display:block;line-height:1}
+.countdown-item .label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;display:block}
+.flash-action{display:flex;flex-direction:column;align-items:center;gap:16px}
+.flash-discount{font-family:'Playfair Display',serif;font-size:4rem;font-weight:700;color:var(--gold);line-height:1}
+.flash-discount span{font-size:1.2rem;display:block;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-weight:400;font-size:.9rem}
+
+/* ===== BENEFITS ===== */
+.benefits{background:var(--bg)}
+.benefits-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.benefit-card{background:var(--bg-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 28px;text-align:center;transition:var(--transition)}
+.benefit-card:hover{border-color:var(--border-hover);transform:translateY(-4px)}
+.benefit-icon{width:56px;height:56px;border-radius:14px;background:rgba(200,169,126,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(--gold);transition:var(--transition)}
+.benefit-card:hover .benefit-icon{background:rgba(200,169,126,.15)}
+.benefit-icon i{width:24px;height:24px}
+.benefit-card h3{font-size:1rem;margin-bottom:8px}
+.benefit-card p{font-size:.85rem;color:var(--text-muted);line-height:1.6}
+
+/* ===== REVIEWS ===== */
+.reviews{background:linear-gradient(180deg,var(--bg),rgba(18,18,26,.3))}
+.reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.review-card{background:var(--bg-glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;transition:var(--transition)}
+.review-card:hover{border-color:var(--border-hover)}
+.review-stars{display:flex;gap:2px;color:var(--gold);margin-bottom:16px}
+.review-stars i{width:16px;height:16px}
+.review-text{font-size:.95rem;color:var(--text);line-height:1.7;margin-bottom:20px;font-style:italic}
+.review-author{display:flex;align-items:center;gap:12px}
+.review-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;color:var(--bg)}
+.review-author-info strong{font-size:.9rem;display:block;color:var(--text-heading)}
+.review-author-info span{font-size:.8rem;color:var(--text-muted)}
+
+/* ===== NEWSLETTER ===== */
+.newsletter{padding:100px 0}
+.newsletter-box{background:linear-gradient(135deg,rgba(200,169,126,.06),rgba(18,18,26,.8));border:1px solid var(--border);border-radius:var(--radius-lg);padding:60px;text-align:center;position:relative;overflow:hidden}
+.newsletter-box::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(circle,rgba(200,169,126,.06),transparent 70%);pointer-events:none}
+.newsletter-box h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:12px;position:relative}
+.newsletter-box p{color:var(--text-muted);margin-bottom:32px;position:relative}
+.newsletter-form{display:flex;gap:12px;max-width:500px;margin:0 auto;position:relative}
+.newsletter-form input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:14px 24px;color:var(--text);font-size:.95rem;font-family:'DM Sans',sans-serif;transition:var(--transition)}
+.newsletter-form input::placeholder{color:var(--text-muted)}
+.newsletter-form input:focus{border-color:var(--gold);outline:none;box-shadow:0 0 0 3px rgba(200,169,126,.1)}
+.newsletter-form button{white-space:nowrap}
+
+/* ===== FOOTER ===== */
+.footer{background:rgba(18,18,26,.5);border-top:1px solid var(--border);padding:60px 0 0}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-bottom:12px}
+.footer-brand h3 span{color:var(--text-heading)}
+.footer-brand p{color:var(--text-muted);font-size:.9rem;line-height:1.7;margin-bottom:20px}
+.footer-socials{display:flex;gap:10px}
+.footer-social{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:var(--transition)}
+.footer-social:hover{color:var(--gold);border-color:var(--gold);background:rgba(200,169,126,.06)}
+.footer-social i{width:18px;height:18px}
+.footer-col h4{font-size:.85rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-heading);margin-bottom:18px;font-family:'DM Sans',sans-serif;font-weight:700}
+.footer-col a{display:block;font-size:.9rem;color:var(--text-muted);padding:5px 0;transition:var(--transition)}
+.footer-col a:hover{color:var(--gold);padding-left:4px}
+.footer-payments{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.payment-badge{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:.75rem;color:var(--text-muted);font-weight:600}
+.footer-bottom{border-top:1px solid var(--border);padding:24px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-bottom p{font-size:.8rem;color:var(--text-muted)}
+.footer-bottom a{color:var(--gold)}
+
+/* ===== CART DRAWER ===== */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;opacity:0;visibility:hidden;transition:var(--transition)}
+.cart-overlay.open{opacity:1;visibility:visible}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:400px;max-width:90vw;background:var(--bg-card);border-left:1px solid var(--border);z-index:2001;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:24px;border-bottom:1px solid var(--border)}
+.cart-header h3{font-size:1.2rem;display:flex;align-items:center;gap:8px}
+.cart-header h3 i{width:20px;height:20px;color:var(--gold)}
+.cart-close{background:transparent;color:var(--text-muted);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:var(--transition)}
+.cart-close:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.cart-close i{width:20px;height:20px}
+.cart-items{flex:1;overflow-y:auto;padding:24px}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--text-muted)}
+.cart-empty i{width:48px;height:48px;margin-bottom:16px;opacity:.4}
+.cart-empty p{font-size:.95rem}
+.cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border)}
+.cart-item-img{width:64px;height:64px;border-radius:10px;flex-shrink:0}
+.cart-item-info{flex:1}
+.cart-item-info h4{font-size:.9rem;color:var(--text-heading);margin-bottom:4px;font-family:'DM Sans',sans-serif;font-weight:600}
+.cart-item-info .cart-item-price{font-size:.85rem;color:var(--gold);font-weight:600}
+.cart-item-actions{display:flex;align-items:center;gap:8px;margin-top:8px}
+.cart-qty-btn{width:28px;height:28px;border-radius:6px;background:rgba(200,169,126,.08);border:1px solid var(--border);color:var(--text);display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:var(--transition)}
+.cart-qty-btn:hover{border-color:var(--gold);color:var(--gold)}
+.cart-qty{font-size:.9rem;font-weight:600;min-width:20px;text-align:center}
+.cart-item-remove{background:transparent;color:var(--text-muted);margin-left:auto;transition:var(--transition)}
+.cart-item-remove:hover{color:#e74c3c}
+.cart-item-remove i{width:16px;height:16px}
+.cart-footer{padding:24px;border-top:1px solid var(--border)}
+.cart-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px}
+.cart-total span{font-size:.95rem;color:var(--text-muted)}
+.cart-total strong{font-size:1.3rem;color:var(--gold);font-family:'DM Sans',sans-serif}
+.btn-checkout{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--bg);padding:16px;border-radius:12px;font-weight:700;font-size:1rem;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-checkout:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(200,169,126,.3)}
+.btn-checkout i{width:18px;height:18px}
+
+/* ===== WHATSAPP FLOAT ===== */
+.whatsapp-float{position:fixed;bottom:28px;right:28px;z-index:900;width:56px;height:56px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 20px rgba(37,211,102,.3);transition:var(--transition)}
+.whatsapp-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.4)}
+.whatsapp-float i{width:26px;height:26px}
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu{position:fixed;inset:0;background:rgba(10,10,15,.98);backdrop-filter:blur(20px);z-index:1500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;opacity:0;visibility:hidden;transition:var(--transition)}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu a{font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--text-heading);transition:var(--transition)}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-close{position:absolute;top:20px;right:20px;background:transparent;color:var(--text);width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.mobile-menu-close i{width:24px;height:24px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+.hero-grid{grid-template-columns:1fr;text-align:center}
+.hero-desc{margin:0 auto 36px}
+.hero-btns{justify-content:center}
+.hero-visual{display:none}
+.hero-stats{justify-content:center}
+.categories-grid,.benefits-grid{grid-template-columns:repeat(2,1fr)}
+.products-grid{grid-template-columns:repeat(2,1fr)}
+.flash-inner{flex-direction:column;text-align:center;padding:40px}
+.flash-content p{margin:0 auto 28px}
+.countdown{justify-content:center}
+.footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+.nav-links{display:none}
+.nav-mobile-btn{display:flex}
+.reviews-grid{grid-template-columns:1fr}
+.newsletter-form{flex-direction:column}
+.footer-grid{grid-template-columns:1fr}
+.footer-bottom{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){
+.categories-grid,.benefits-grid{grid-template-columns:1fr}
+.products-grid{grid-template-columns:1fr}
+.countdown-item{min-width:60px;padding:12px}
+.countdown-item .number{font-size:1.4rem}
+.hero-stats{flex-direction:column;gap:20px}
+}
+
+/* ===== SKIP LINK (A11y) ===== */
+.skip-link{position:absolute;top:-100%;left:16px;background:var(--gold);color:var(--bg);padding:12px 24px;border-radius:0 0 8px 8px;font-weight:600;z-index:9999;transition:top .2s}
+.skip-link:focus{top:0}
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Pular para o conteudo principal</a>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menu de navegacao">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Fechar menu"><i data-lucide="x"></i></button>
+  <a href="#categorias" onclick="closeMobileMenu()">Categorias</a>
+  <a href="#produtos" onclick="closeMobileMenu()">Produtos</a>
+  <a href="#ofertas" onclick="closeMobileMenu()">Ofertas</a>
+  <a href="#avaliacoes" onclick="closeMobileMenu()">Avaliacoes</a>
+  <a href="#contato" onclick="closeMobileMenu()">Contato</a>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Navegacao principal">
+  <div class="container">
+    <a href="#" class="nav-logo" aria-label="FastShopping - Pagina inicial">Fast<span>Shopping</span></a>
+    <div class="nav-links">
+      <a href="#categorias">Categorias</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#avaliacoes">Avaliacoes</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-search-btn" aria-label="Buscar produtos"><i data-lucide="search"></i></button>
+      <button class="nav-cart-btn" id="cartBtn" aria-label="Abrir carrinho de compras">
+        <i data-lucide="shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="Abrir menu"><i data-lucide="menu"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<!-- CART DRAWER -->
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-label="Carrinho de compras">
+  <div class="cart-header">
+    <h3><i data-lucide="shopping-bag"></i> Seu Carrinho</h3>
+    <button class="cart-close" id="cartClose" aria-label="Fechar carrinho"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <i data-lucide="shopping-cart"></i>
+      <p>Seu carrinho esta vazio</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <strong id="cartTotal">R$ 0,00</strong>
+    </div>
+    <button class="btn-checkout"><i data-lucide="lock"></i> Finalizar Compra</button>
+  </div>
+</aside>
+
+<!-- HERO -->
+<main id="main">
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge"><i data-lucide="sparkles"></i> Nova Colecao 2026</div>
+        <h1>Compras <span class="gold">Premium</span> ao Seu Alcance</h1>
+        <p class="hero-desc">Descubra uma curadoria exclusiva de produtos de luxo com precos acessiveis. Entrega expressa, parcelamento facilitado e atendimento personalizado.</p>
+        <div class="hero-btns">
+          <a href="#produtos" class="btn-primary"><i data-lucide="arrow-right" style="width:18px;height:18px"></i> Explorar Produtos</a>
+          <a href="#categorias" class="btn-outline"><i data-lucide="grid-3x3" style="width:18px;height:18px"></i> Ver Categorias</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><h4>50K+</h4><p>Clientes Satisfeitos</p></div>
+          <div class="hero-stat"><h4>2.5K+</h4><p>Produtos Premium</p></div>
+          <div class="hero-stat"><h4>99.8%</h4><p>Avaliacoes Positivas</p></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-content">
+            <span class="hero-card-tag">Exclusivo</span>
+            <h3>Colecao Signature</h3>
+            <p>Pecas selecionadas a dedo</p>
+          </div>
+        </div>
+        <div class="hero-floating-card hero-float-1">
+          <div class="icon-wrap"><i data-lucide="truck"></i></div>
+          <div class="info"><span>Entrega</span><strong>Express 24h</strong></div>
+        </div>
+        <div class="hero-floating-card hero-float-2">
+          <div class="icon-wrap"><i data-lucide="shield-check"></i></div>
+          <div class="info"><span>Compra</span><strong>100% Segura</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categorias">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i data-lucide="layout-grid"></i> Categorias</div>
+      <h2 class="section-title">Explore Nossas Categorias</h2>
+      <p class="section-desc">Navegue por uma selecao curada dos melhores segmentos de produtos premium.</p>
+    </div>
+    <div class="categories-grid">
+      <div class="category-card reveal reveal-delay-1" tabindex="0" role="button" aria-label="Categoria Eletronicos">
+        <div class="category-icon"><i data-lucide="monitor-smartphone"></i></div>
+        <h3>Eletronicos</h3>
+        <p>Smartphones, notebooks e gadgets de ultima geracao</p>
+        <div class="category-count">324 produtos</div>
+      </div>
+      <div class="category-card reveal reveal-delay-2" tabindex="0" role="button" aria-label="Categoria Moda Premium">
+        <div class="category-icon"><i data-lucide="shirt"></i></div>
+        <h3>Moda Premium</h3>
+        <p>Vestuario e acessorios de marcas renomadas</p>
+        <div class="category-count">518 produtos</div>
+      </div>
+      <div class="category-card reveal reveal-delay-3" tabindex="0" role="button" aria-label="Categoria Casa e Design">
+        <div class="category-icon"><i data-lucide="lamp"></i></div>
+        <h3>Casa & Design</h3>
+        <p>Moveis, decoracao e pecas de design autoral</p>
+        <div class="category-count">276 produtos</div>
+      </div>
+      <div class="category-card reveal reveal-delay-4" tabindex="0" role="button" aria-label="Categoria Beleza e Wellness">
+        <div class="category-icon"><i data-lucide="heart-pulse"></i></div>
+        <h3>Beleza & Wellness</h3>
+        <p>Cosmeticos, skincare e bem-estar premium</p>
+        <div class="category-count">412 produtos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="produtos">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i data-lucide="gem"></i> Destaques</div>
+      <h2 class="section-title">Produtos em Destaque</h2>
+      <p class="section-desc">Os itens mais desejados da nossa colecao, selecionados especialmente para voce.</p>
+    </div>
+    <div class="products-grid" id="productsGrid">
+      <!-- Products injected via JS -->
+    </div>
+  </div>
+</section>
+
+<!-- FLASH SALE -->
+<section class="flash-sale" id="ofertas">
+  <div class="container">
+    <div class="flash-inner reveal">
+      <div class="flash-content">
+        <div class="flash-badge"><i data-lucide="zap"></i> Oferta Relampago</div>
+        <h2>Mega Sale de Primavera</h2>
+        <p>Descontos imperdíveis por tempo limitado. Aproveite ate 60% OFF nos melhores produtos da loja.</p>
+        <div class="countdown" role="timer" aria-label="Contagem regressiva da oferta">
+          <div class="countdown-item"><span class="number" id="countDays">00</span><span class="label">Dias</span></div>
+          <div class="countdown-item"><span class="number" id="countHours">00</span><span class="label">Horas</span></div>
+          <div class="countdown-item"><span class="number" id="countMins">00</span><span class="label">Min</span></div>
+          <div class="countdown-item"><span class="number" id="countSecs">00</span><span class="label">Seg</span></div>
+        </div>
+      </div>
+      <div class="flash-action">
+        <div class="flash-discount">60%<span>de desconto</span></div>
+        <a href="#produtos" class="btn-primary">Ver Ofertas <i data-lucide="arrow-right" style="width:16px;height:16px"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="beneficios">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i data-lucide="award"></i> Vantagens</div>
+      <h2 class="section-title">Por Que Escolher a FastShopping?</h2>
+      <p class="section-desc">Oferecemos a melhor experiencia de compra online com beneficios exclusivos.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card reveal reveal-delay-1">
+        <div class="benefit-icon"><i data-lucide="truck"></i></div>
+        <h3>Frete Gratis</h3>
+        <p>Entrega gratuita para compras acima de R$ 299 em todo o Brasil.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-2">
+        <div class="benefit-icon"><i data-lucide="credit-card"></i></div>
+        <h3>Parcelamento 12x</h3>
+        <p>Parcele suas compras em ate 12x sem juros no cartao de credito.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-3">
+        <div class="benefit-icon"><i data-lucide="refresh-ccw"></i></div>
+        <h3>Troca Facil 30 Dias</h3>
+        <p>Troque ou devolva seus produtos em ate 30 dias sem complicacao.</p>
+      </div>
+      <div class="benefit-card reveal reveal-delay-4">
+        <div class="benefit-icon"><i data-lucide="shield-check"></i></div>
+        <h3>Pagamento Seguro</h3>
+        <p>Seus dados protegidos com criptografia de nivel bancario.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="avaliacoes">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-label"><i data-lucide="message-square"></i> Depoimentos</div>
+      <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
+      <p class="section-desc">Milhares de clientes satisfeitos compartilham suas experiencias.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal reveal-delay-1">
+        <div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p class="review-text">"Impressionante a qualidade dos produtos e a rapidez na entrega. Recebi meu pedido em menos de 24 horas! A embalagem premium fez toda a diferenca."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,var(--gold),var(--gold-dark))">MC</div>
+          <div class="review-author-info"><strong>Marina Costa</strong><span>Sao Paulo, SP</span></div>
+        </div>
+      </div>
+      <div class="review-card reveal reveal-delay-2">
+        <div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p class="review-text">"Melhor experiencia de compra online que ja tive. O atendimento via WhatsApp e super atencioso e me ajudou a escolher o produto ideal."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#4a7c59,#2d5a3d)">RS</div>
+          <div class="review-author-info"><strong>Rafael Santos</strong><span>Rio de Janeiro, RJ</span></div>
+        </div>
+      </div>
+      <div class="review-card reveal reveal-delay-3">
+        <div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p class="review-text">"Parcelei em 12x sem juros e ainda ganhei frete gratis. Os produtos chegaram exatamente como descritos. Ja fiz tres compras e todas perfeitas."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#5a4a7c,#3d2d5a)">AF</div>
+          <div class="review-author-info"><strong>Ana Ferreira</strong><span>Belo Horizonte, MG</span></div>
+        </div>
+      </div>
+      <div class="review-card reveal reveal-delay-4">
+        <div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+        <p class="review-text">"A politica de troca e excelente. Precisei trocar o tamanho de uma peca e o processo foi super simples e rapido. Recomendo demais!"</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#7c5a4a,#5a3d2d)">LO</div>
+          <div class="review-author-info"><strong>Lucas Oliveira</strong><span>Curitiba, PR</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="contato">
+  <div class="container">
+    <div class="newsletter-box reveal">
+      <div class="section-label"><i data-lucide="mail"></i> Newsletter</div>
+      <h2 class="section-title">Receba Ofertas Exclusivas</h2>
+      <p>Cadastre-se e ganhe 10% de desconto na primeira compra. Sem spam, apenas ofertas selecionadas.</p>
+      <form class="newsletter-form" id="newsletterForm" aria-label="Formulario de newsletter">
+        <input type="email" placeholder="Seu melhor e-mail" required aria-label="Endereco de e-mail">
+        <button type="submit" class="btn-primary">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Fast<span>Shopping</span></h3>
+        <p>Sua loja premium online com curadoria exclusiva de produtos de alta qualidade. Experiencia de compra incomparavel.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" class="footer-social" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+          <a href="#" class="footer-social" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" class="footer-social" aria-label="YouTube"><i data-lucide="youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Institucional</h4>
+        <a href="#">Sobre Nos</a>
+        <a href="#">Nossa Historia</a>
+        <a href="#">Trabalhe Conosco</a>
+        <a href="#">Blog</a>
+        <a href="#">Imprensa</a>
+      </div>
+      <div class="footer-col">
+        <h4>Atendimento</h4>
+        <a href="#">Central de Ajuda</a>
+        <a href="#">Trocas e Devolucoes</a>
+        <a href="#">Rastrear Pedido</a>
+        <a href="#">Politica de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </div>
+      <div class="footer-col">
+        <h4>Formas de Pagamento</h4>
+        <div class="footer-payments">
+          <span class="payment-badge">Visa</span>
+          <span class="payment-badge">Mastercard</span>
+          <span class="payment-badge">Elo</span>
+          <span class="payment-badge">Amex</span>
+          <span class="payment-badge">Pix</span>
+          <span class="payment-badge">Boleto</span>
+        </div>
+        <h4 style="margin-top:24px">Seguranca</h4>
+        <div class="footer-payments">
+          <span class="payment-badge">SSL 256-bit</span>
+          <span class="payment-badge">PCI DSS</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 FastShopping. Todos os direitos reservados. CNPJ: 00.000.000/0001-00</p>
+      <p>Feito com dedicacao por <a href="#">FastShopping Team</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/5511999999999?text=Ola!%20Gostaria%20de%20saber%20mais%20sobre%20os%20produtos%20da%20FastShopping" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Fale conosco pelo WhatsApp"><i data-lucide="message-circle"></i></a>
+
+<script>
+(function(){
+'use strict';
+
+/* ===== PRODUCT DATA ===== */
+const products = [
+  {id:1,name:'MacBook Pro M4 Ultra',category:'Eletronicos',price:18999.90,oldPrice:22499.90,badge:'Lancamento',rating:4.9,reviews:142,img:'linear-gradient(135deg,#1a1a2e,#2d2d44,rgba(200,169,126,.2))',installment:'12x R$ 1.583,33'},
+  {id:2,name:'Bolsa Couro Italiano Artesanal',category:'Moda Premium',price:2899.90,oldPrice:3599.90,badge:'',rating:4.8,reviews:89,img:'linear-gradient(135deg,#2a1f14,#3d2e1f,rgba(200,169,126,.3))',installment:'12x R$ 241,66'},
+  {id:3,name:'Luminaria Escultura Nordica',category:'Casa & Design',price:1299.90,oldPrice:null,badge:'Exclusivo',rating:4.7,reviews:56,img:'linear-gradient(135deg,#1a2420,#2d3d35,rgba(200,169,126,.15))',installment:'12x R$ 108,33'},
+  {id:4,name:'Kit Skincare Premium Coreano',category:'Beleza & Wellness',price:899.90,oldPrice:1199.90,badge:'-25%',rating:4.9,reviews:234,img:'linear-gradient(135deg,#2a1f28,#3d2d3a,rgba(200,169,126,.2))',installment:'12x R$ 74,99'},
+  {id:5,name:'Fone Sony WH-1000XM6',category:'Eletronicos',price:2499.90,oldPrice:2999.90,badge:'',rating:4.8,reviews:178,img:'linear-gradient(135deg,#15151f,#252535,rgba(200,169,126,.15))',installment:'12x R$ 208,33'},
+  {id:6,name:'Relogio Automatico Swiss Made',category:'Moda Premium',price:8599.90,oldPrice:10999.90,badge:'Premium',rating:5.0,reviews:45,img:'linear-gradient(135deg,#1f1a14,#352e24,rgba(200,169,126,.25))',installment:'12x R$ 716,66'},
+  {id:7,name:'Poltrona Design Escandinavo',category:'Casa & Design',price:4299.90,oldPrice:5199.90,badge:'',rating:4.6,reviews:67,img:'linear-gradient(135deg,#1a1f20,#2d3535,rgba(200,169,126,.1))',installment:'12x R$ 358,33'},
+  {id:8,name:'Perfume Niche Collection 100ml',category:'Beleza & Wellness',price:1599.90,oldPrice:null,badge:'Novo',rating:4.9,reviews:112,img:'linear-gradient(135deg,#201a2a,#352d44,rgba(200,169,126,.2))',installment:'12x R$ 133,33'}
+];
+
+/* ===== CART STATE ===== */
+let cart = [];
+
+/* ===== DOM REFS ===== */
+const cartBtn = document.getElementById('cartBtn');
+const cartDrawer = document.getElementById('cartDrawer');
+const cartOverlay = document.getElementById('cartOverlay');
+const cartClose = document.getElementById('cartClose');
+const cartItemsEl = document.getElementById('cartItems');
+const cartEmptyEl = document.getElementById('cartEmpty');
+const cartFooterEl = document.getElementById('cartFooter');
+const cartCountEl = document.getElementById('cartCount');
+const cartTotalEl = document.getElementById('cartTotal');
+const navbar = document.getElementById('navbar');
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileMenuClose = document.getElementById('mobileMenuClose');
+const productsGrid = document.getElementById('productsGrid');
+
+/* ===== RENDER PRODUCTS ===== */
+function renderProducts(){
+  productsGrid.innerHTML = products.map((p,i) => `
+    <div class="product-card reveal reveal-delay-${(i%4)+1}">
+      <div class="product-img">
+        <div class="product-img-bg" style="background:${p.img};width:100%;height:100%"></div>
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+        <button class="product-wishlist" aria-label="Adicionar ${p.name} aos favoritos"><i data-lucide="heart"></i></button>
+      </div>
+      <div class="product-info">
+        <div class="product-category">${p.category}</div>
+        <h3>${p.name}</h3>
+        <div class="product-rating">
+          <div class="stars">${'<i data-lucide="star"></i>'.repeat(Math.floor(p.rating))}</div>
+          <span>(${p.reviews})</span>
+        </div>
+        <div class="product-price-row">
+          <span class="product-price">R$ ${p.price.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+          ${p.oldPrice ? `<span class="product-price-old">R$ ${p.oldPrice.toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>` : ''}
+        </div>
+        <div class="product-installment">ou ${p.installment} sem juros</div>
+        <button class="btn-cart" data-id="${p.id}" aria-label="Adicionar ${p.name} ao carrinho"><i data-lucide="shopping-bag"></i> Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  `).join('');
+  lucide.createIcons();
+  initRevealObserver();
+}
+
+/* ===== CART FUNCTIONS ===== */
+function openCart(){cartDrawer.classList.add('open');cartOverlay.classList.add('open');document.body.style.overflow='hidden'}
+function closeCart(){cartDrawer.classList.remove('open');cartOverlay.classList.remove('open');document.body.style.overflow=''}
+
+function addToCart(id){
+  const product = products.find(p=>p.id===id);
+  if(!product) return;
+  const existing = cart.find(c=>c.id===id);
+  if(existing){existing.qty++}else{cart.push({...product,qty:1})}
+  updateCart();
+  openCart();
+}
+
+function removeFromCart(id){
+  cart = cart.filter(c=>c.id!==id);
+  updateCart();
+}
+
+function changeQty(id,delta){
+  const item = cart.find(c=>c.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty <= 0) removeFromCart(id);
+  else updateCart();
+}
+
+function updateCart(){
+  const totalItems = cart.reduce((s,c)=>s+c.qty,0);
+  const totalPrice = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  cartCountEl.textContent = totalItems;
+  if(totalItems > 0){
+    cartCountEl.classList.add('show');
+    cartEmptyEl.style.display = 'none';
+    cartFooterEl.style.display = 'block';
+    cartTotalEl.textContent = `R$ ${totalPrice.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
+    const itemsHTML = cart.map(c=>`
+      <div class="cart-item">
+        <div class="cart-item-img" style="background:${c.img};border-radius:10px"></div>
+        <div class="cart-item-info">
+          <h4>${c.name}</h4>
+          <span class="cart-item-price">R$ ${(c.price*c.qty).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
+          <div class="cart-item-actions">
+            <button class="cart-qty-btn" onclick="changeQty(${c.id},-1)" aria-label="Diminuir quantidade">-</button>
+            <span class="cart-qty">${c.qty}</span>
+            <button class="cart-qty-btn" onclick="changeQty(${c.id},1)" aria-label="Aumentar quantidade">+</button>
+            <button class="cart-item-remove" onclick="removeFromCart(${c.id})" aria-label="Remover item"><i data-lucide="trash-2"></i></button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    // Keep empty el but hidden, render items before it
+    const existingItems = cartItemsEl.querySelectorAll('.cart-item');
+    existingItems.forEach(el=>el.remove());
+    cartEmptyEl.insertAdjacentHTML('beforebegin', itemsHTML);
+    lucide.createIcons();
+  } else {
+    cartCountEl.classList.remove('show');
+    cartEmptyEl.style.display = '';
+    cartFooterEl.style.display = 'none';
+    const existingItems = cartItemsEl.querySelectorAll('.cart-item');
+    existingItems.forEach(el=>el.remove());
+  }
+}
+
+// Expose to global for onclick handlers
+window.changeQty = changeQty;
+window.removeFromCart = removeFromCart;
+
+/* ===== EVENT LISTENERS ===== */
+cartBtn.addEventListener('click', openCart);
+cartClose.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    closeCart();
+    if(mobileMenu.classList.contains('open')) closeMobileMenu();
+  }
+});
+
+productsGrid.addEventListener('click', function(e){
+  const btn = e.target.closest('.btn-cart');
+  if(btn){
+    const id = parseInt(btn.dataset.id);
+    addToCart(id);
+  }
+});
+
+/* ===== NAVBAR SCROLL ===== */
+let lastScroll = 0;
+window.addEventListener('scroll', function(){
+  const scrollY = window.scrollY;
+  if(scrollY > 60) navbar.classList.add('scrolled');
+  else navbar.classList.remove('scrolled');
+  lastScroll = scrollY;
+},{passive:true});
+
+/* ===== MOBILE MENU ===== */
+mobileMenuBtn.addEventListener('click', function(){
+  mobileMenu.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+mobileMenuClose.addEventListener('click', closeMobileMenu);
+window.closeMobileMenu = function(){
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+/* ===== INTERSECTION OBSERVER ===== */
+function initRevealObserver(){
+  const reveals = document.querySelectorAll('.reveal:not(.active)');
+  if(!reveals.length) return;
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  reveals.forEach(function(el){observer.observe(el)});
+}
+
+/* ===== COUNTDOWN TIMER ===== */
+function initCountdown(){
+  // Set target 3 days from now
+  const target = new Date();
+  target.setDate(target.getDate() + 3);
+  target.setHours(23,59,59,0);
+  const targetTime = target.getTime();
+
+  function update(){
+    const now = Date.now();
+    let diff = targetTime - now;
+    if(diff < 0) diff = 0;
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('countDays').textContent = String(days).padStart(2,'0');
+    document.getElementById('countHours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('countMins').textContent = String(mins).padStart(2,'0');
+    document.getElementById('countSecs').textContent = String(secs).padStart(2,'0');
+  }
+  update();
+  setInterval(update, 1000);
+}
+
+/* ===== NEWSLETTER ===== */
+document.getElementById('newsletterForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const input = this.querySelector('input');
+  const email = input.value;
+  if(email){
+    input.value = '';
+    const btn = this.querySelector('button');
+    const originalText = btn.textContent;
+    btn.textContent = 'Cadastrado!';
+    btn.style.background = '#25d366';
+    setTimeout(function(){
+      btn.textContent = originalText;
+      btn.style.background = '';
+    }, 2500);
+  }
+});
+
+/* ===== INIT ===== */
+renderProducts();
+initCountdown();
+initRevealObserver();
+
+})();
+</script>
+</body>
+</html>
