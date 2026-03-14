@@ -639,7 +639,7 @@ section{padding:100px 0}
 const products = [
   {id:1,name:'MacBook Pro M4 Ultra',category:'Eletronicos',price:18999.90,oldPrice:22499.90,badge:'Lancamento',rating:4.9,reviews:142,img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=600&fit=crop',installment:'12x R$ 1.583,33'},
   {id:2,name:'Bolsa Couro Italiano Artesanal',category:'Moda Premium',price:2899.90,oldPrice:3599.90,badge:'',rating:4.8,reviews:89,img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop',installment:'12x R$ 241,66'},
-  {id:3,name:'Luminaria Escultura Nordica',category:'Casa & Design',price:1299.90,oldPrice:null,badge:'Exclusivo',rating:4.7,reviews:56,img:'https://images.unsplash.com/photo-1507473885765-e6ed057ab3fe?w=600&h=600&fit=crop',installment:'12x R$ 108,33'},
+  {id:3,name:'Luminaria Escultura Nordica',category:'Casa & Design',price:1299.90,oldPrice:null,badge:'Exclusivo',rating:4.7,reviews:56,img:'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600&h=600&fit=crop',installment:'12x R$ 108,33'},
   {id:4,name:'Kit Skincare Premium Coreano',category:'Beleza & Wellness',price:899.90,oldPrice:1199.90,badge:'-25%',rating:4.9,reviews:234,img:'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&h=600&fit=crop',installment:'12x R$ 74,99'},
   {id:5,name:'Fone Sony WH-1000XM6',category:'Eletronicos',price:2499.90,oldPrice:2999.90,badge:'',rating:4.8,reviews:178,img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',installment:'12x R$ 208,33'},
   {id:6,name:'Relogio Automatico Swiss Made',category:'Moda Premium',price:8599.90,oldPrice:10999.90,badge:'Premium',rating:5.0,reviews:45,img:'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&h=600&fit=crop',installment:'12x R$ 716,66'},
@@ -763,6 +763,13 @@ function updateCart(){
 window.changeQty = changeQty;
 window.removeFromCart = removeFromCart;
 
+/* ===== MOBILE MENU ===== */
+function closeMobileMenu(){
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+window.closeMobileMenu = closeMobileMenu;
+
 /* ===== EVENT LISTENERS ===== */
 cartBtn.addEventListener('click', openCart);
 cartClose.addEventListener('click', closeCart);
@@ -771,7 +778,7 @@ cartOverlay.addEventListener('click', closeCart);
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){
     closeCart();
-    if(mobileMenu.classList.contains('open')) closeMobileMenu();
+    if(mobileMenu && mobileMenu.classList.contains('open')) closeMobileMenu();
   }
 });
 
@@ -792,16 +799,11 @@ window.addEventListener('scroll', function(){
   lastScroll = scrollY;
 },{passive:true});
 
-/* ===== MOBILE MENU ===== */
 mobileMenuBtn.addEventListener('click', function(){
   mobileMenu.classList.add('open');
   document.body.style.overflow = 'hidden';
 });
 mobileMenuClose.addEventListener('click', closeMobileMenu);
-window.closeMobileMenu = function(){
-  mobileMenu.classList.remove('open');
-  document.body.style.overflow = '';
-};
 
 /* ===== INTERSECTION OBSERVER ===== */
 function initRevealObserver(){
