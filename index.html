@@ -65,10 +65,10 @@ ul{list-style:none}
 .nav-mobile-btn{display:none;background:transparent;color:var(--text);width:40px;height:40px;align-items:center;justify-content:center}
 
 /* ===== HERO ===== */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(200,169,126,.08) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(200,169,126,.05) 0%,transparent 50%),radial-gradient(ellipse 40% 40% at 10% 80%,rgba(200,169,126,.04) 0%,transparent 50%);pointer-events:none}
-.hero::after{content:'';position:absolute;top:0;right:0;width:500px;height:500px;background:radial-gradient(circle,rgba(200,169,126,.06) 0%,transparent 70%);animation:float 8s ease-in-out infinite;pointer-events:none}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 0 80px;background-image:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=80');background-size:cover;background-position:center}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,15,.88) 0%,rgba(10,10,15,.75) 50%,rgba(10,10,15,.92) 100%),radial-gradient(ellipse 80% 60% at 50% 40%,rgba(200,169,126,.08) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 20%,rgba(200,169,126,.05) 0%,transparent 50%),radial-gradient(ellipse 40% 40% at 10% 80%,rgba(200,169,126,.04) 0%,transparent 50%);pointer-events:none;z-index:1}
+.hero::after{content:'';position:absolute;top:0;right:0;width:500px;height:500px;background:radial-gradient(circle,rgba(200,169,126,.06) 0%,transparent 70%);animation:float 8s ease-in-out infinite;pointer-events:none;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,169,126,.08);border:1px solid var(--border);padding:8px 16px;border-radius:100px;font-size:.8rem;color:var(--gold);margin-bottom:24px}
 .hero-badge i{width:14px;height:14px}
 .hero h1{font-size:clamp(2.4rem,5vw,4rem);line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
@@ -193,7 +193,7 @@ section{padding:100px 0}
 
 /* ===== NEWSLETTER ===== */
 .newsletter{padding:100px 0}
-.newsletter-box{background:linear-gradient(135deg,rgba(200,169,126,.06),rgba(18,18,26,.8));border:1px solid var(--border);border-radius:var(--radius-lg);padding:60px;text-align:center;position:relative;overflow:hidden}
+.newsletter-box{background:linear-gradient(135deg,rgba(10,10,15,.88),rgba(18,18,26,.92)),url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&q=80');background-size:cover;background-position:center;border:1px solid var(--border);border-radius:var(--radius-lg);padding:60px;text-align:center;position:relative;overflow:hidden}
 .newsletter-box::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(circle,rgba(200,169,126,.06),transparent 70%);pointer-events:none}
 .newsletter-box h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:12px;position:relative}
 .newsletter-box p{color:var(--text-muted);margin-bottom:32px;position:relative}
@@ -414,25 +414,25 @@ section{padding:100px 0}
       <p class="section-desc">Navegue por uma selecao curada dos melhores segmentos de produtos premium.</p>
     </div>
     <div class="categories-grid">
-      <div class="category-card reveal reveal-delay-1" tabindex="0" role="button" aria-label="Categoria Eletronicos">
+      <div class="category-card reveal reveal-delay-1" tabindex="0" role="button" aria-label="Categoria Eletronicos" style="background-image:linear-gradient(180deg,rgba(18,18,26,.85),rgba(18,18,26,.95)),url('https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=400&h=300&fit=crop');background-size:cover;background-position:center">
         <div class="category-icon"><i data-lucide="monitor-smartphone"></i></div>
         <h3>Eletronicos</h3>
         <p>Smartphones, notebooks e gadgets de ultima geracao</p>
         <div class="category-count">324 produtos</div>
       </div>
-      <div class="category-card reveal reveal-delay-2" tabindex="0" role="button" aria-label="Categoria Moda Premium">
+      <div class="category-card reveal reveal-delay-2" tabindex="0" role="button" aria-label="Categoria Moda Premium" style="background-image:linear-gradient(180deg,rgba(18,18,26,.85),rgba(18,18,26,.95)),url('https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&h=300&fit=crop');background-size:cover;background-position:center">
         <div class="category-icon"><i data-lucide="shirt"></i></div>
         <h3>Moda Premium</h3>
         <p>Vestuario e acessorios de marcas renomadas</p>
         <div class="category-count">518 produtos</div>
       </div>
-      <div class="category-card reveal reveal-delay-3" tabindex="0" role="button" aria-label="Categoria Casa e Design">
+      <div class="category-card reveal reveal-delay-3" tabindex="0" role="button" aria-label="Categoria Casa e Design" style="background-image:linear-gradient(180deg,rgba(18,18,26,.85),rgba(18,18,26,.95)),url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop');background-size:cover;background-position:center">
         <div class="category-icon"><i data-lucide="lamp"></i></div>
         <h3>Casa & Design</h3>
         <p>Moveis, decoracao e pecas de design autoral</p>
         <div class="category-count">276 produtos</div>
       </div>
-      <div class="category-card reveal reveal-delay-4" tabindex="0" role="button" aria-label="Categoria Beleza e Wellness">
+      <div class="category-card reveal reveal-delay-4" tabindex="0" role="button" aria-label="Categoria Beleza e Wellness" style="background-image:linear-gradient(180deg,rgba(18,18,26,.85),rgba(18,18,26,.95)),url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=300&fit=crop');background-size:cover;background-position:center">
         <div class="category-icon"><i data-lucide="heart-pulse"></i></div>
         <h3>Beleza & Wellness</h3>
         <p>Cosmeticos, skincare e bem-estar premium</p>
@@ -472,6 +472,7 @@ section{padding:100px 0}
         </div>
       </div>
       <div class="flash-action">
+        <img src="https://images.unsplash.com/photo-1491933382434-500287f9b54b?w=500&h=500&fit=crop" alt="Oferta Relampago" style="width:180px;height:180px;object-fit:cover;border-radius:var(--radius-lg);border:1px solid var(--border);margin-bottom:16px" loading="lazy">
         <div class="flash-discount">60%<span>de desconto</span></div>
         <a href="#produtos" class="btn-primary">Ver Ofertas <i data-lucide="arrow-right" style="width:16px;height:16px"></i></a>
       </div>
@@ -525,7 +526,7 @@ section{padding:100px 0}
         <div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
         <p class="review-text">"Impressionante a qualidade dos produtos e a rapidez na entrega. Recebi meu pedido em menos de 24 horas! A embalagem premium fez toda a diferenca."</p>
         <div class="review-author">
-          <div class="review-avatar" style="background:linear-gradient(135deg,var(--gold),var(--gold-dark))">MC</div>
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Marina Costa" class="review-avatar" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
           <div class="review-author-info"><strong>Marina Costa</strong><span>Sao Paulo, SP</span></div>
         </div>
       </div>
@@ -533,7 +534,7 @@ section{padding:100px 0}
         <div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
         <p class="review-text">"Melhor experiencia de compra online que ja tive. O atendimento via WhatsApp e super atencioso e me ajudou a escolher o produto ideal."</p>
         <div class="review-author">
-          <div class="review-avatar" style="background:linear-gradient(135deg,#4a7c59,#2d5a3d)">RS</div>
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="Rafael Santos" class="review-avatar" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
           <div class="review-author-info"><strong>Rafael Santos</strong><span>Rio de Janeiro, RJ</span></div>
         </div>
       </div>
@@ -541,7 +542,7 @@ section{padding:100px 0}
         <div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
         <p class="review-text">"Parcelei em 12x sem juros e ainda ganhei frete gratis. Os produtos chegaram exatamente como descritos. Ja fiz tres compras e todas perfeitas."</p>
         <div class="review-author">
-          <div class="review-avatar" style="background:linear-gradient(135deg,#5a4a7c,#3d2d5a)">AF</div>
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" alt="Ana Ferreira" class="review-avatar" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
           <div class="review-author-info"><strong>Ana Ferreira</strong><span>Belo Horizonte, MG</span></div>
         </div>
       </div>
@@ -549,7 +550,7 @@ section{padding:100px 0}
         <div class="review-stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
         <p class="review-text">"A politica de troca e excelente. Precisei trocar o tamanho de uma peca e o processo foi super simples e rapido. Recomendo demais!"</p>
         <div class="review-author">
-          <div class="review-avatar" style="background:linear-gradient(135deg,#7c5a4a,#5a3d2d)">LO</div>
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Lucas Oliveira" class="review-avatar" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
           <div class="review-author-info"><strong>Lucas Oliveira</strong><span>Curitiba, PR</span></div>
         </div>
       </div>
@@ -636,14 +637,14 @@ section{padding:100px 0}
 
 /* ===== PRODUCT DATA ===== */
 const products = [
-  {id:1,name:'MacBook Pro M4 Ultra',category:'Eletronicos',price:18999.90,oldPrice:22499.90,badge:'Lancamento',rating:4.9,reviews:142,img:'linear-gradient(135deg,#1a1a2e,#2d2d44,rgba(200,169,126,.2))',installment:'12x R$ 1.583,33'},
-  {id:2,name:'Bolsa Couro Italiano Artesanal',category:'Moda Premium',price:2899.90,oldPrice:3599.90,badge:'',rating:4.8,reviews:89,img:'linear-gradient(135deg,#2a1f14,#3d2e1f,rgba(200,169,126,.3))',installment:'12x R$ 241,66'},
-  {id:3,name:'Luminaria Escultura Nordica',category:'Casa & Design',price:1299.90,oldPrice:null,badge:'Exclusivo',rating:4.7,reviews:56,img:'linear-gradient(135deg,#1a2420,#2d3d35,rgba(200,169,126,.15))',installment:'12x R$ 108,33'},
-  {id:4,name:'Kit Skincare Premium Coreano',category:'Beleza & Wellness',price:899.90,oldPrice:1199.90,badge:'-25%',rating:4.9,reviews:234,img:'linear-gradient(135deg,#2a1f28,#3d2d3a,rgba(200,169,126,.2))',installment:'12x R$ 74,99'},
-  {id:5,name:'Fone Sony WH-1000XM6',category:'Eletronicos',price:2499.90,oldPrice:2999.90,badge:'',rating:4.8,reviews:178,img:'linear-gradient(135deg,#15151f,#252535,rgba(200,169,126,.15))',installment:'12x R$ 208,33'},
-  {id:6,name:'Relogio Automatico Swiss Made',category:'Moda Premium',price:8599.90,oldPrice:10999.90,badge:'Premium',rating:5.0,reviews:45,img:'linear-gradient(135deg,#1f1a14,#352e24,rgba(200,169,126,.25))',installment:'12x R$ 716,66'},
-  {id:7,name:'Poltrona Design Escandinavo',category:'Casa & Design',price:4299.90,oldPrice:5199.90,badge:'',rating:4.6,reviews:67,img:'linear-gradient(135deg,#1a1f20,#2d3535,rgba(200,169,126,.1))',installment:'12x R$ 358,33'},
-  {id:8,name:'Perfume Niche Collection 100ml',category:'Beleza & Wellness',price:1599.90,oldPrice:null,badge:'Novo',rating:4.9,reviews:112,img:'linear-gradient(135deg,#201a2a,#352d44,rgba(200,169,126,.2))',installment:'12x R$ 133,33'}
+  {id:1,name:'MacBook Pro M4 Ultra',category:'Eletronicos',price:18999.90,oldPrice:22499.90,badge:'Lancamento',rating:4.9,reviews:142,img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=600&fit=crop',installment:'12x R$ 1.583,33'},
+  {id:2,name:'Bolsa Couro Italiano Artesanal',category:'Moda Premium',price:2899.90,oldPrice:3599.90,badge:'',rating:4.8,reviews:89,img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop',installment:'12x R$ 241,66'},
+  {id:3,name:'Luminaria Escultura Nordica',category:'Casa & Design',price:1299.90,oldPrice:null,badge:'Exclusivo',rating:4.7,reviews:56,img:'https://images.unsplash.com/photo-1507473885765-e6ed057ab3fe?w=600&h=600&fit=crop',installment:'12x R$ 108,33'},
+  {id:4,name:'Kit Skincare Premium Coreano',category:'Beleza & Wellness',price:899.90,oldPrice:1199.90,badge:'-25%',rating:4.9,reviews:234,img:'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&h=600&fit=crop',installment:'12x R$ 74,99'},
+  {id:5,name:'Fone Sony WH-1000XM6',category:'Eletronicos',price:2499.90,oldPrice:2999.90,badge:'',rating:4.8,reviews:178,img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',installment:'12x R$ 208,33'},
+  {id:6,name:'Relogio Automatico Swiss Made',category:'Moda Premium',price:8599.90,oldPrice:10999.90,badge:'Premium',rating:5.0,reviews:45,img:'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&h=600&fit=crop',installment:'12x R$ 716,66'},
+  {id:7,name:'Poltrona Design Escandinavo',category:'Casa & Design',price:4299.90,oldPrice:5199.90,badge:'',rating:4.6,reviews:67,img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=600&fit=crop',installment:'12x R$ 358,33'},
+  {id:8,name:'Perfume Niche Collection 100ml',category:'Beleza & Wellness',price:1599.90,oldPrice:null,badge:'Novo',rating:4.9,reviews:112,img:'https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop',installment:'12x R$ 133,33'}
 ];
 
 /* ===== CART STATE ===== */
@@ -670,7 +671,7 @@ function renderProducts(){
   productsGrid.innerHTML = products.map((p,i) => `
     <div class="product-card reveal reveal-delay-${(i%4)+1}">
       <div class="product-img">
-        <div class="product-img-bg" style="background:${p.img};width:100%;height:100%"></div>
+        <img src="${p.img}" alt="${p.name}" class="product-img-bg" style="width:100%;height:100%;object-fit:cover" loading="lazy">
         ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
         <button class="product-wishlist" aria-label="Adicionar ${p.name} aos favoritos"><i data-lucide="heart"></i></button>
       </div>
@@ -731,7 +732,7 @@ function updateCart(){
     cartTotalEl.textContent = `R$ ${totalPrice.toLocaleString('pt-BR',{minimumFractionDigits:2})}`;
     const itemsHTML = cart.map(c=>`
       <div class="cart-item">
-        <div class="cart-item-img" style="background:${c.img};border-radius:10px"></div>
+        <img src="${c.img}" alt="${c.name}" class="cart-item-img" style="border-radius:10px;object-fit:cover">
         <div class="cart-item-info">
           <h4>${c.name}</h4>
           <span class="cart-item-price">R$ ${(c.price*c.qty).toLocaleString('pt-BR',{minimumFractionDigits:2})}</span>
